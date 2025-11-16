@@ -44,7 +44,7 @@ bool 出力モード = false;
 // 実際のキャッシュサイズ (バイト単位) (64bit)
 ULONGLONG 合計キャッシュサイズバイト = (ULONGLONG)60 * 1024 * 1024 * 1024;
 const int 最低キャッシュサイズ = 1;
-const int 最大キャッシュサイズ = 99;
+const int 最大キャッシュサイズ = 500;
 
 // ターゲット DLL 関連の構造体定義
 using インプットプラグインターブル関数取得 = INPUT_PLUGIN_TABLE * (__stdcall*)(void);
@@ -898,3 +898,4 @@ BOOL func_init(void)
     return TRUE;
 
 }
+

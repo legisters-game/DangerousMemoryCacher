@@ -1,0 +1,39 @@
+#include <windows.h>
+#include <commctrl.h>
+
+#define IDD_CONFIG 1000
+#define IDC_CACHE_SIZE_GB 1001
+#define IDC_SPIN_CACHE_SIZE 1002
+#define IDC_CHECKBOX_1 1003 
+#define IDC_CHECKBOX_2 1004 
+#define IDC_READAHEAD_FRAMES 1005 
+#define IDC_SPIN_READAHEAD 1006 
+#define IDC_CHECKBOX_3 1007
+
+IDD_CONFIG DIALOGEX 0, 0, 240, 155 
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "NewLegiInput Cache Settings"
+FONT 9, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    /* 既存のコントロール: キャッシュサイズ (Y座標: 10) */
+    LTEXT               "使用メモリ(GB)スペックを超えるサイズは推奨しません:", -1, 7, 10, 150, 8
+    EDITTEXT            IDC_CACHE_SIZE_GB, 170, 8, 40, 12, ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL             "", IDC_SPIN_CACHE_SIZE, UPDOWN_CLASS, UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | WS_CHILD | WS_VISIBLE, 220, 8, 10, 12
+
+    /* 新しく追加したコントロール: 先読みフレーム数 (Y座標: 30) */
+    LTEXT               "先読みフレーム数:", -1, 7, 30, 150, 8
+    EDITTEXT            IDC_READAHEAD_FRAMES, 170, 28, 40, 12, ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL             "", IDC_SPIN_READAHEAD, UPDOWN_CLASS, UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | WS_CHILD | WS_VISIBLE, 220, 28, 10, 12
+
+    /* 既存のチェックボックス (Y座標を+20シフト: 35->55, 55->75) */
+    CONTROL             "デバッグ用のログを出力(ターミナル)", IDC_CHECKBOX_1, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 7, 55, 226, 10
+    CONTROL             "毎フレームごとにメモリ保存ログを出力(ターミナル)", IDC_CHECKBOX_2, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 7, 75, 226, 10
+    CONTROL             "動画出力時はオンにしてください。", IDC_CHECKBOX_3, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 7, 95, 226, 10
+    
+    /* 区切り線（Y座標を+20シフト: 80->100） */
+    CONTROL             "", -1, "Static", SS_ETCHEDHORZ, 7, 120, 226, 1
+
+    /* ボタン (Y座標を+20シフト: 115->135) */
+    DEFPUSHBUTTON       "OK", IDOK, 129, 135, 50, 14
+    PUSHBUTTON          "Cancel", IDCANCEL, 183, 135, 50, 14
+END

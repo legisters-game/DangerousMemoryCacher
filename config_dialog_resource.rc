@@ -12,28 +12,28 @@
 
 IDD_CONFIG DIALOGEX 0, 0, 240, 155 
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "NewLegiInput Cache Settings"
+CAPTION "DangerousMemoryCacher Settings"
 FONT 9, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    /* Šù‘¶‚ÌƒRƒ“ƒgƒ[ƒ‹: ƒLƒƒƒbƒVƒ…ƒTƒCƒY (YÀ•W: 10) */
-    LTEXT               "Žg—pƒƒ‚ƒŠ(GB)ƒXƒyƒbƒN‚ð’´‚¦‚éƒTƒCƒY‚Í„§‚µ‚Ü‚¹‚ñ:", -1, 7, 10, 150, 8
+    /* æ—¢å­˜ã®ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«: ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚µã‚¤ã‚º (Yåº§æ¨™: 10) */
+    LTEXT               "ä½¿ç”¨ãƒ¡ãƒ¢ãƒª(GB)ã‚¹ãƒšãƒƒã‚¯ã‚’è¶…ãˆã‚‹ã‚µã‚¤ã‚ºã¯æŽ¨å¥¨ã—ã¾ã›ã‚“:", -1, 7, 10, 150, 8
     EDITTEXT            IDC_CACHE_SIZE_GB, 170, 8, 40, 12, ES_AUTOHSCROLL | ES_NUMBER
     CONTROL             "", IDC_SPIN_CACHE_SIZE, UPDOWN_CLASS, UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | WS_CHILD | WS_VISIBLE, 220, 8, 10, 12
 
-    /* V‚µ‚­’Ç‰Á‚µ‚½ƒRƒ“ƒgƒ[ƒ‹: æ“Ç‚ÝƒtƒŒ[ƒ€” (YÀ•W: 30) */
-    LTEXT               "æ“Ç‚ÝƒtƒŒ[ƒ€”:", -1, 7, 30, 150, 8
+    /* æ–°ã—ãè¿½åŠ ã—ãŸã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«: å…ˆèª­ã¿ãƒ•ãƒ¬ãƒ¼ãƒ æ•° (Yåº§æ¨™: 30) */
+    LTEXT               "å…ˆèª­ã¿ãƒ•ãƒ¬ãƒ¼ãƒ æ•°:", -1, 7, 30, 150, 8
     EDITTEXT            IDC_READAHEAD_FRAMES, 170, 28, 40, 12, ES_AUTOHSCROLL | ES_NUMBER
     CONTROL             "", IDC_SPIN_READAHEAD, UPDOWN_CLASS, UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | WS_CHILD | WS_VISIBLE, 220, 28, 10, 12
 
-    /* Šù‘¶‚Ìƒ`ƒFƒbƒNƒ{ƒbƒNƒX (YÀ•W‚ð+20ƒVƒtƒg: 35->55, 55->75) */
-    CONTROL             "ƒfƒoƒbƒO—p‚ÌƒƒO‚ðo—Í(ƒ^[ƒ~ƒiƒ‹)", IDC_CHECKBOX_1, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 7, 55, 226, 10
-    CONTROL             "–ˆƒtƒŒ[ƒ€‚²‚Æ‚Éƒƒ‚ƒŠ•Û‘¶ƒƒO‚ðo—Í(ƒ^[ƒ~ƒiƒ‹)", IDC_CHECKBOX_2, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 7, 75, 226, 10
-    CONTROL             "“®‰æo—ÍŽž‚ÍƒIƒ“‚É‚µ‚Ä‚­‚¾‚³‚¢B", IDC_CHECKBOX_3, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 7, 95, 226, 10
+    /* æ—¢å­˜ã®ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹ (Yåº§æ¨™ã‚’+20ã‚·ãƒ•ãƒˆ: 35->55, 55->75) */
+    CONTROL             "ãƒ‡ãƒãƒƒã‚°ç”¨ã®ãƒ­ã‚°ã‚’å‡ºåŠ›(ã‚¿ãƒ¼ãƒŸãƒŠãƒ«)", IDC_CHECKBOX_1, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 7, 55, 226, 10
+    CONTROL             "æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã«ãƒ¡ãƒ¢ãƒªä¿å­˜ãƒ­ã‚°ã‚’å‡ºåŠ›(ã‚¿ãƒ¼ãƒŸãƒŠãƒ«)", IDC_CHECKBOX_2, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 7, 75, 226, 10
+    CONTROL             "å‹•ç”»å‡ºåŠ›æ™‚ã¯ã‚ªãƒ³ã«ã—ã¦ãã ã•ã„ã€‚", IDC_CHECKBOX_3, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 7, 95, 226, 10
     
-    /* ‹æØ‚èüiYÀ•W‚ð+20ƒVƒtƒg: 80->100j */
+    /* åŒºåˆ‡ã‚Šç·šï¼ˆYåº§æ¨™ã‚’+20ã‚·ãƒ•ãƒˆ: 80->100ï¼‰ */
     CONTROL             "", -1, "Static", SS_ETCHEDHORZ, 7, 120, 226, 1
 
-    /* ƒ{ƒ^ƒ“ (YÀ•W‚ð+20ƒVƒtƒg: 115->135) */
+    /* ãƒœã‚¿ãƒ³ (Yåº§æ¨™ã‚’+20ã‚·ãƒ•ãƒˆ: 115->135) */
     DEFPUSHBUTTON       "OK", IDOK, 129, 135, 50, 14
     PUSHBUTTON          "Cancel", IDCANCEL, 183, 135, 50, 14
 END

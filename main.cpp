@@ -41,6 +41,7 @@ int 先読みフレーム数 = 30;
 bool デバッグモードオン = false;
 bool 毎フレームデバッグモードオン = false;
 bool 出力モード = false;
+char 読み込みプラグイン名[MAX_PATH] = "";
 // 実際のキャッシュサイズ (バイト単位) (64bit)
 ULONGLONG 合計キャッシュサイズバイト = (ULONGLONG)60 * 1024 * 1024 * 1024;
 const int 最低キャッシュサイズ = 1;
@@ -179,6 +180,14 @@ void 設定読み込み(void)
         false, // 初期値
         設定ファイルパス
     );
+    GetPrivateProfileStringA(
+        "Config",
+        "読み込みプラグイン",   // INIファイルの項目名
+        "MFVideoReaderPlugin.aui",                     // デフォルト値
+        読み込みプラグイン名,     // 変数名（保存したいプラグイン名の文字列）
+        _countof(読み込みプラグイン名),
+        設定ファイルパス
+    );
     // 範囲チェックと補正
     if (キャッシュサイズGB < 最低キャッシュサイズ) キャッシュサイズGB = 最低キャッシュサイズ;
     if (キャッシュサイズGB > 最大キャッシュサイズ) キャッシュサイズGB = 最大キャッシュサイズ;
@@ -214,6 +223,7 @@ void 設定保存(void)
     snprintf(毎フレームデバッグ文字, _countof(毎フレームデバッグ文字), "%d", 毎フレームデバッグモードオン);
     char 出力中文字[16];
     snprintf(出力中文字, _countof(出力中文字), "%d", 出力モード);
+
     // INIファイルに設定を書き込む
     WritePrivateProfileStringA(
         "Config",
@@ -243,6 +253,12 @@ void 設定保存(void)
         "Config",
         "出力中",
         出力中文字,
+        設定ファイルパス
+    );
+    WritePrivateProfileStringA(
+        "Config",
+        "読み込みプラグイン",   // INIファイルの項目名
+        読み込みプラグイン名,     // 変数名（保存したいプラグイン名の文字列）
         設定ファイルパス
     );
 }
@@ -293,12 +309,14 @@ BOOL func_exit(void)
 INPUT_HANDLE func_open(LPSTR file)
 {   // ターゲットDLLのロード処理 (一度のみ実行)
     if (流用インプットプラグイン == NULL) {
-        流用インプットプラグイン = ::LoadLibrary(TEXT("MFVideoReaderPlugin.aui"));
+        //流用インプットプラグイン = ::LoadLibrary(TEXT("MFVideoReaderPlugin.aui"));
+        流用インプットプラグイン = ::LoadLibraryA(読み込みプラグイン名);
         if (流用インプットプラグイン == NULL) {
-            流用インプットプラグイン = ::LoadLibrary(TEXT("plugins/MFVideoReaderPlugin.aui"));
+            //流用インプットプラグイン = ::LoadLibrary(TEXT("plugins/MFVideoReaderPlugin.aui"));
+            流用インプットプラグイン = ::LoadLibraryA((std::string("plugins/")+ 読み込みプラグイン名).c_str());
         }
         if (流用インプットプラグイン == NULL) {
-            ログ出力("MFVideoReaderPlugin.auiの読み込みに失敗。MFVideoReaderPluginを入れてください。", true);
+            ログ出力((std::string(読み込みプラグイン名) + "の読み込みに失敗。DangerousMemoryCacher設定.iniに適切なプラグイン名を指定してください。").c_str(), true);
             return NULL;
         }
         インプットプラグインターブル関数取得 MFVインプットプラグインテーブル = (インプットプラグインターブル関数取得)::GetProcAddress(流用インプットプラグイン, "GetInputPluginTable");
@@ -308,7 +326,7 @@ INPUT_HANDLE func_open(LPSTR file)
         else {
             ::FreeLibrary(流用インプットプラグイン);
             流用インプットプラグイン = NULL;
-            ログ出力("MFVideoReaderPlugin.auiの初期化エラー", false);
+            ログ出力((std::string(読み込みプラグイン名) + "の初期化エラー").c_str(), false);
             return NULL;
         }
         if (流用プラグインテーブル->func_init) {
@@ -896,6 +914,4 @@ BOOL func_init(void)
     }
     ログ出力("先読みスレッドを正常に起動しました。", true, false);
     return TRUE;
-
 }
-
